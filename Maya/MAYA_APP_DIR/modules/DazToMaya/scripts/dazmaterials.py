@@ -153,6 +153,7 @@ class DazMaterials:
                                 file_node.setAttr('fileTextureName', props[prop]["Texture"]) 
                                 file_node.setAttr('colorSpace', 'Raw', type='string')
                                 file_node.setAttr('alphaIsLuminance', True)
+                                file_node.setAttr('exposure', 2)
                                 file_node.outColor >> surface.specularColor
 
                         if "normal" in avail_tex.keys():
@@ -174,6 +175,7 @@ class DazMaterials:
                             prop = avail_tex["bump"]
                             if props[prop]["Texture"] != "":
                                 bump_node = pm.shadingNode("aiBump2d", asUtility = True)
+                                bump_node.setAttr('bumpHeight', 0.1)
                                 file_node = pm.shadingNode("file", n = shader.name() + "_" + prop + "_tx", asTexture = True)
                                 file_node.setAttr('fileTextureName', props[prop]["Texture"])
                                 file_node.setAttr('colorSpace', 'Raw', type='string')
@@ -241,10 +243,10 @@ class DazMaterials:
                             surface.base.set(0)
                             surface.setAttr("subsurface", 1)
                             surface.setAttr("subsurfaceRadius", radius_as_vector)
-                            surface.setAttr("subsurfaceScale", 0.5)
+                            surface.setAttr("subsurfaceScale", 0.1)
                             if "detail-mask" in avail_tex.keys():
                                 detail.base.set(0)
                                 detail.setAttr("subsurface", 1)
                                 detail.setAttr("subsurfaceRadius", radius_as_vector)
-                                detail.setAttr("subsurfaceScale", 0.5)
+                                detail.setAttr("subsurfaceScale", 0.1)
                         pm.delete(shader)
